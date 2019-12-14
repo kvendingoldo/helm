@@ -207,6 +207,14 @@ func TestInstall(t *testing.T) {
 			resp:     helm.ReleaseMock(&helm.MockReleaseOptions{Name: "virgil"}),
 			expected: "info:\n  Description: Release mock\n  first_deployed:\n    seconds: 242085845\n  last_deployed:\n    seconds: 242085845\n  status:\n    code: 1\nname: virgil\nnamespace: default\n",
 		},
+		// Install, deprecated chart
+		{
+			name:     "install deprecated chart",
+			args:     []string{"testdata/testcharts/deprecated"},
+			flags:    strings.Split("--name deprecated --output yaml", " "),
+			resp:     helm.ReleaseMock(&helm.MockReleaseOptions{Name: "deprecated"}),
+			expected: "info:\n  Description: Release mock\n  first_deployed:\n    seconds: 242085845\n  last_deployed:\n    seconds: 242085845\n  status:\n    code: 1\nname: virgil\nnamespace: default\n",
+		},
 	}
 
 	runReleaseCases(t, tests, func(c *helm.FakeClient, out io.Writer) *cobra.Command {
